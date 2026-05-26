@@ -1,0 +1,12 @@
+node_modules/
+out/
+dist/
+*.vsix
+.vscode-test/
+.DS_Store
+
+# webview build output (committed source lives in src/webview/)
+media/webview/webview.js
+media/webview/webview.js.map
+media/webview/webview.css
+media/webview/webview.css.map

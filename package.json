@@ -1,0 +1,131 @@
+{
+  "name": "stashpad",
+  "displayName": "StashPad",
+  "description": "Stage prompts and ideas while Claude Code works the terminal. Drop one in when the moment's right — editable text, no queue, no auto-send.",
+  "version": "0.1.1",
+  "publisher": "AbdalhalimAlzohbi",
+  "license": "MIT",
+  "author": {
+    "name": "abdalhalimalzohbi",
+    "email": "azohbi123@gmail.com"
+  },
+  "homepage": "https://github.com/abdalhalimalzohbi/StashPad#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abdalhalimalzohbi/StashPad.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abdalhalimalzohbi/StashPad/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0",
+    "node": ">=20"
+  },
+  "categories": [
+    "Other",
+    "Snippets"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "prompt",
+    "terminal",
+    "ai",
+    "scratchpad",
+    "stash",
+    "sidebar",
+    "snippet",
+    "productivity"
+  ],
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#1a1b1e",
+    "theme": "dark"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "stashpad",
+          "title": "StashPad",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "stashpad": [
+        {
+          "type": "webview",
+          "id": "stashpad.pad",
+          "name": "StashPad",
+          "contextualTitle": "StashPad"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "stashpad.test",
+        "title": "StashPad: Test Inject"
+      },
+      {
+        "command": "stashpad.focusCapture",
+        "title": "StashPad: Focus Capture Input"
+      },
+      {
+        "command": "stashpad.parkSelection",
+        "title": "StashPad: Park Selection"
+      },
+      {
+        "command": "stashpad.parkClipboard",
+        "title": "StashPad: Park Clipboard"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "stashpad.focusCapture",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p"
+      },
+      {
+        "command": "stashpad.parkSelection",
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "stashpad.parkClipboard",
+        "key": "ctrl+alt+v",
+        "mac": "cmd+alt+v"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "npm run typecheck:host && npm run typecheck:webview",
+    "typecheck:host": "tsc -p tsconfig.host.json --noEmit",
+    "typecheck:webview": "tsc -p tsconfig.webview.json --noEmit",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix",
+    "format": "prettier --write \"src/**/*.{ts,css,json}\" \"*.{md,json,js}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,css,json}\" \"*.{md,json,js}\"",
+    "clean": "rimraf out media/webview *.vsix",
+    "vscode:prepublish": "npm run build -- --production",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.21.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.0"
+  }
+}

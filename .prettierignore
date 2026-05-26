@@ -1,0 +1,7 @@
+node_modules/
+out/
+media/webview/webview.js
+media/webview/webview.css
+*.vsix
+package-lock.json
+CHANGELOG.md

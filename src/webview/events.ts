@@ -223,8 +223,9 @@ function bindCardListeners(): void {
         target.closest('.card-edit') ||
         target.closest('.card-tags') ||
         target.closest('.tag-input')
-      )
+      ) {
         return;
+      }
       const id = cardEl.dataset.id;
       if (!id) return;
       cardEl.classList.add('injecting');

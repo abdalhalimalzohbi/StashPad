@@ -8,6 +8,7 @@ const CONSUME_DELAY_MS = 380;
 const MAX_EDIT_ROWS = 8;
 const MAX_TAG_LENGTH = 24;
 const MAX_FOLDER_NAME_LENGTH = 40;
+let dropHandledInternally = false;
 
 function rebind(): void {
   render();
@@ -218,7 +219,12 @@ function bindCardListeners(): void {
       if (cardEl.classList.contains('editing')) return;
       const target = e.target as HTMLElement;
       if (target.closest('[data-act]')) return;
-      if (target.closest('.card-edit') || target.closest('.card-tags') || target.closest('.tag-input')) return;
+      if (
+        target.closest('.card-edit') ||
+        target.closest('.card-tags') ||
+        target.closest('.tag-input')
+      )
+        return;
       const id = cardEl.dataset.id;
       if (!id) return;
       cardEl.classList.add('injecting');
@@ -228,24 +234,17 @@ function bindCardListeners(): void {
 
     cardEl.addEventListener('dragstart', (e) => {
       cardEl.classList.add('dragging');
+      dropHandledInternally = false;
       const id = cardEl.dataset.id ?? '';
-      const card = state.cards.find((c) => c.id === id);
       if (e.dataTransfer) {
-        e.dataTransfer.setData('text/plain', card?.text ?? '');
         e.dataTransfer.setData('application/x-stashpad-card-id', id);
         e.dataTransfer.effectAllowed = 'copyMove';
       }
     });
 
-    cardEl.addEventListener('dragend', (e) => {
+    cardEl.addEventListener('dragend', () => {
       cardEl.classList.remove('dragging');
-      if (e.dataTransfer && e.dataTransfer.dropEffect !== 'none') return;
-      const outside =
-        e.clientX < 0 ||
-        e.clientY < 0 ||
-        e.clientX > window.innerWidth ||
-        e.clientY > window.innerHeight;
-      if (!outside) return;
+      if (dropHandledInternally) return;
       const id = cardEl.dataset.id;
       if (id) post({ type: 'inject', payload: { id } });
     });
@@ -269,6 +268,7 @@ function bindCardListeners(): void {
 
     cardEl.addEventListener('drop', (e) => {
       e.preventDefault();
+      dropHandledInternally = true;
       handleCardDrop();
     });
   });
@@ -286,6 +286,7 @@ function bindFolderDropTargets(): void {
     });
     target.addEventListener('drop', (e) => {
       e.preventDefault();
+      dropHandledInternally = true;
       target.classList.remove('drag-over');
       const draggingEl = document.querySelector<HTMLElement>('.card.dragging');
       if (!draggingEl) return;

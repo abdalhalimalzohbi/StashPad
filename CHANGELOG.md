@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-05-29
+
+### Fixed
+
+- Drag-to-inject now reliably fires when a card is dropped onto the terminal or editor. The old `dragend` heuristic relied on cursor coordinates that browsers report as `0,0` across the webview iframe boundary, so external drops silently did nothing. Drops are now detected by whether they landed on an in-sidebar target, and the redundant `text/plain` drag payload was removed to prevent double-insertion.
+
+## [0.1.1]
+
 ### Added
 
 - Hero screenshot in the README so the marketplace listing has a visual preview.
@@ -46,5 +54,6 @@ First public release.
 
 - Strict Content-Security-Policy on the webview (nonce on scripts, `default-src 'none'`, no external resources).
 
-[Unreleased]: https://github.com/abdalhalimalzohbi/StashPad/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/abdalhalimalzohbi/StashPad/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/abdalhalimalzohbi/StashPad/compare/v0.1.1...v0.1.2
 [0.1.0]: https://github.com/abdalhalimalzohbi/StashPad/releases/tag/v0.1.0

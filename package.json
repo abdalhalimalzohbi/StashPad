@@ -2,7 +2,7 @@
   "name": "stashpad",
   "displayName": "StashPad",
   "description": "Stage prompts and ideas while Claude Code works the terminal. Drop one in when the moment's right — editable text, no queue, no auto-send.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "AbdalhalimAlzohbi",
   "license": "MIT",
   "author": {
